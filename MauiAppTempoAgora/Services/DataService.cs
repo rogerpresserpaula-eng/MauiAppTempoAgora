@@ -1,5 +1,6 @@
 ﻿using MauiAppTempoAgora.Models;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace MauiAppTempoAgora.Services
 {
@@ -18,7 +19,13 @@ namespace MauiAppTempoAgora.Services
             {
                 HttpResponseMessage resp = await client.GetAsync(url);
 
-                if(resp.IsSuccessStatusCode)
+                //QUANDO A CIDADE NÃO FOR ENCONTRADA
+                if (resp.StatusCode == HttpStatusCode.NotFound) 
+                { 
+                    throw new Exception("Cidade não encontrada!"); 
+                }
+
+                if (resp.IsSuccessStatusCode)
                 {
                     string json = await resp.Content.ReadAsStringAsync();
 

@@ -45,7 +45,11 @@ namespace MauiAppTempoAgora
                 {
                     lbl_res.Text = "Preencha a cidade!";
                 }
-
+ 
+            }
+            catch (HttpRequestException)
+            {
+                await DisplayAlert("Erro", "Sem conexão com a internet!", "OK");
             }
             catch (Exception ex)
             {
